@@ -1,0 +1,13 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Initialize modular bash profile 
+[[ -f "$HOME/.config/bash/init.sh" ]] && . "$HOME/.config/bash/init.sh"
+
+# Initialize local bashrc
+[[ -f "$HOME/.bashrc_local" ]] && . "$HOME/.bashrc_local"
+

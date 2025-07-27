@@ -1,0 +1,19 @@
+{{- $email_address := promptStringOnce . "email_address" "Email address" -}}
+
+[data]
+    email_address = {{ $email_address | quote }}
+    xdg_cache_dir = "{{ .chezmoi.homeDir }}/.cache"
+    xdg_config_dir = "{{ .chezmoi.homeDir }}/.config"
+    xdg_data_dir = "{{ .chezmoi.homeDir }}/.local/share"
+    xdg_state_dir = "{{ .chezmoi.homeDir }}/.local/state"
+    
+[hooks.read-source-state.pre]
+script = ".local/share/chezmoi/dotfiles/.pre-read-source-state-hook.sh"
+
+[hooks.apply.post]
+script = ".local/share/chezmoi/dotfiles/.post-apply-hook.sh"
+
+
+[hooks.add.post]
+script = ".local/share/chezmoi/dotfiles/.post-add-hook.sh"
+
