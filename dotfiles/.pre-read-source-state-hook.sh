@@ -2,7 +2,7 @@
 # env | grep ^CHEZMOI
 
 # exit immediately if keepassxc is already in $PATH
-type keepassxc >/dev/null 2>&1 && echo "keepassxc already installed." && exit
+type keepassxc >/dev/null 2>&1 && echo "keepassxc installed." && exit
 
 if [ -f /etc/os-release ]; then
    source /etc/os-release
