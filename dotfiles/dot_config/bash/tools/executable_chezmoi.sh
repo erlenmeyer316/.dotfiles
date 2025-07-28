@@ -1,2 +1,2 @@
 
-alias dotfiles="chezmoi cd && cd dotfiles"
+alias dotfiles="cd $HOME/.local/share/chezmoi/dotfiles"
