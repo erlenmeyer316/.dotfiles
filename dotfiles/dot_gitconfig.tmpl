@@ -43,7 +43,9 @@
 	email = {{ .email_address }}
 	name = {{ .user_name }}
 
-{{- if .use_secrets -}}
+{{- if .use_secrets }}
+
 [github]
    user = {{ (keepassxc "github.com").UserName }}
+
 {{- end }}
