@@ -1,14 +1,31 @@
-{{- $email_address := promptStringOnce . "email_address" "Email address" -}}
-{{- $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from keepassxc? (y/n)" -}}
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+{{- $user_name := promptStringOnce . "$user_name" "Enter your name:" -}}
+{{- $email_address := promptStringOnce . "email_address" "Enter your email address:" -}}
+{{- $install_base_packages := promptBoolOnce . "install_base_packages" "Install base packages? (Y/n)" true -}}
+{{- $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from keepassxc? (Y/n)" true -}}
+{{- $kpxc_db := promptStringOnce . "kpxc_db" "Path to keepassxc database?" "" -}}
 
 [data]
+    osid = {{ $osid | quote }}
+    user_name = {{ $user_name | quote }}
     email_address = {{ $email_address | quote }}
+    install_base_packages = {{ $install_base_packages }}
     use_secrets = {{ $use_secrets }}
     xdg_cache_dir = "{{ .chezmoi.homeDir }}/.cache"
     xdg_config_dir = "{{ .chezmoi.homeDir }}/.config"
     xdg_data_dir = "{{ .chezmoi.homeDir }}/.local/share"
     xdg_state_dir = "{{ .chezmoi.homeDir }}/.local/state"
-    
+
+{{- if ne $kpxc_db "" }}
+[keepassxc]
+	database = {{ $kpxc_db | quote }}
+{{- end }}
+
+
 [hooks.read-source-state.pre]
 script = ".local/share/chezmoi/dotfiles/.pre-read-source-state-hook.sh"
 

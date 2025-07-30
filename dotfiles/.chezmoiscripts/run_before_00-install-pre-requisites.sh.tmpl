@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+
+{{ if eq .osid "darwin" }}
+  # install brew + other required packages for dotfile installation
+  echo "Hi, I'm a mac"
+{{ end }}
+
+{{ if eq .osid "linux-arch" }}
+  # install yay + other required packages for dotfile installation
+  echo "Hi, I use arch btw"
+{{ end }}
+
+{{ if eq .osid "linux-debian" }}
+  # install required packages for dotfile installation
+  echo "Hi, I'm debian."
+{{ end }}
+
