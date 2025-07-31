@@ -6,8 +6,8 @@
 {{- $user_name := promptStringOnce . "$user_name" "Enter your name:" -}}
 {{- $email_address := promptStringOnce . "email_address" "Enter your email address:" -}}
 {{- $install_base_packages := promptBoolOnce . "install_base_packages" "Install base packages? (Y/n)" true -}}
-{{- $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from keepassxc? (Y/n)" true -}}
-{{- $kpxc_db := promptStringOnce . "kpxc_db" "Path to keepassxc database?" "" -}}
+{{- $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from keepassxc (Y/n)" true -}}
+{{- $kpxc_db := promptStringOnce . "kpxc_db" "Path to keepassxc database (Press enter to skip)" "" -}}
 
 [data]
     osid = {{ $osid | quote }}

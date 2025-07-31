@@ -1,5 +1,5 @@
 #!/bin/sh
-env | grep ^CHEZMOI
+#env | grep ^CHEZMOI
 
 # exit immediately if keepassxc is already in $PATH
 type keepassxc >/dev/null 2>&1 && exit
