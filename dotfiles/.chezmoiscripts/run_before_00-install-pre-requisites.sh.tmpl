@@ -1,18 +1,66 @@
 #!/usr/bin/env bash
 
+{{ template "shared_script_utils.bash" . }}
 
 {{ if eq .osid "darwin" }}
-  # install brew + other required packages for dotfile installation
-  echo "Hi, I'm a mac"
+  # Install brew + other required packages for dotfile installation
 {{ end }}
 
 {{ if eq .osid "linux-arch" }}
-  # install yay + other required packages for dotfile installation
-  echo "Hi, I use arch btw"
+  # Install yay + other required packages for dotfile installation
+  install=false
+
+  # Declare a regular array for the package names
+  declare -a packages=(
+      "curl"
+      "unzip"
+      "wget"
+      "git"
+  )
+
+  to_install=()
+
+  # Loop through the commands to check if they're installed
+  for cmd in "${packages[@]}"; do
+      if ! command -v "${cmd}" &>/dev/null; then
+          install=true
+	  to_install+=("${cmd}")
+      fi
+  done
+
+  # Install the missing packages
+  if ${install}; then
+      header "Updating package list"
+      sudo pacman -Sy
+
+      for pkg in "${to_install[@]}"; do
+          header "Installing ${pkg}"
+	  sudo pacman -Sy "${pkg}"
+      done
+  fi
+
+  # Install base-devel
+  if ! command -v gcc &>/dev/null; then
+      header "Installing base-devel"
+      sudo pacman -Sy base-devel
+  fi
+
+
+  # Install yay package manager if not install
+  if ! command -v yay &>/dev/null; then
+      mkdir -p $HOME/Source
+      header "Cloning yay repository"
+      git clone https://aur.archlinux.org/yay.git $HOME/Source/yay
+      cd $HOME/Source/yay
+      header "Installing yay"
+      makepkg -si
+  fi
+
+
 {{ end }}
 
 {{ if eq .osid "linux-debian" }}
   # install required packages for dotfile installation
-  echo "Hi, I'm debian."
 {{ end }}
 
+_safeExit_
