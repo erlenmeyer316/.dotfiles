@@ -1,0 +1,20 @@
+
+#!/usr/bin/env bash
+
+{{ if eq .osid "linux-arch" }}
+
+{{ template "shared_script_utils.bash" . }}
+
+packages=(
+    {{ range $package := .packages.pacman.base.packages }}
+        "{{ $package }}"
+    {{ end }}
+)
+
+header "Installing packages with pacman"
+sudo pacman -Sy
+
+success "pacman packages installed"
+_safeExit_
+
+{{ end }}

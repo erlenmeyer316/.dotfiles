@@ -2,26 +2,28 @@
     to_remove = [
         "neofetch",
     ]
-    [packages.pacman.base]
-        packages = [
-            "base-devel",
-	    "fastfetch",
-	    "man-db",
-	    "man-pages",
-	    "neovim",
-	    "ranger",
-	    "trash-cli",
-	    "xdg-user-dirs"
-	]
+[packages.pacman.base]
+    packages = [
+        "base-devel",
+	"fastfetch",
+	"man-db",
+	"man-pages",
+	"neovim",
+	"ranger",
+	"trash-cli",
+	"xdg-user-dirs",
+    ]
+[packages.pacman.personal_computer]
+    packages = []
 [packages.yay]
     to_remove = []
-    [packages.yay.base]
-        packages = []
+[packages.yay.base]
+    packages = []
 [packages.brew]
     to_remove = []
-    [packages.brew.base]
-        packages = []
+[packages.brew.base]
+    packages = []
 [packages.apt]
     to_remove = []
-    [packages.apt.base]
-        packages = []
+[packages.apt.base]
+    packages = []
