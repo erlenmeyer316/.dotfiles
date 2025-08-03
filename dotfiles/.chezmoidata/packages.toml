@@ -6,10 +6,13 @@
     packages = [
         "base-devel",
 	"fastfetch",
+	"fzf",
 	"man-db",
 	"man-pages",
 	"neovim",
 	"ranger",
+	"ripgrep",
+	"starship",
 	"trash-cli",
 	"xdg-user-dirs",
     ]

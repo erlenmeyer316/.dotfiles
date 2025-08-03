@@ -45,14 +45,13 @@
       sudo pacman -Sy base-devel
   fi
 
-
   # Install yay package manager if not install
   if ! command -v yay &>/dev/null; then
       mkdir -p $HOME/Source
       header "Cloning yay repository"
       git clone https://aur.archlinux.org/yay.git $HOME/Source/yay
       cd $HOME/Source/yay
-      header "Installing yay"
+      header "Installing yay package manager"
       makepkg -si
   fi
 
