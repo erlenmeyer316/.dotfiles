@@ -13,7 +13,7 @@ did_remove_package=false
    {{ range $package := .packages.pacman.to_remove }}
       if pacman -Qqe | grep "{{ $package }}" &> /dev/null; then
           did_remove_package=true
-	  sudo pacman -Rns "{{ $package }}"
+	  sudo pacman -Rns "{{ $package }}" -y
       fi
    {{ end }}
 {{ end }}
