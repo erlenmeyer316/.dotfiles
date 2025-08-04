@@ -16,6 +16,8 @@
 	"trash-cli",
 	"xdg-user-dirs",
     ]
+[packages.pacman.development_computer]
+    packages = []
 [packages.pacman.personal_computer]
     packages = []
 [packages.yay]
