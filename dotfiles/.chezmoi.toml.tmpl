@@ -5,7 +5,7 @@
 
 {{- $user_name := promptStringOnce . "$user_name" "Enter your name:" -}}
 {{- $email_address := promptStringOnce . "email_address" "Enter your email address:" -}}
-{{- $install_base_packages := promptBoolOnce . "install_base_packages" "Install base packages? (Y/n)" true -}}
+{{- $personal_computer := promptBoolOnce . "personal_computer" "Is this a personal computer? (y/N)" false -}}
 {{- $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from keepassxc (Y/n)" true -}}
 {{- $kpxc_db := promptStringOnce . "kpxc_db" "Path to keepassxc database (Press enter to skip)" "" -}}
 
@@ -13,7 +13,7 @@
     osid = {{ $osid | quote }}
     user_name = {{ $user_name | quote }}
     email_address = {{ $email_address | quote }}
-    install_base_packages = {{ $install_base_packages }}
+    personal_computer = {{ $personal_computer }}
     use_secrets = {{ $use_secrets }}
     xdg_cache_dir = "{{ .chezmoi.homeDir }}/.cache"
     xdg_config_dir = "{{ .chezmoi.homeDir }}/.config"

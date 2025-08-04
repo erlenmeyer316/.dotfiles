@@ -1,6 +1,7 @@
 [packages.pacman]
     to_remove = [
         "neofetch",
+	"w3m",
     ]
 [packages.pacman.base]
     packages = [
@@ -17,9 +18,17 @@
 	"xdg-user-dirs",
     ]
 [packages.pacman.development_computer]
-    packages = []
+    packages = [
+	"git",
+	"github-cli",
+	"jq",	
+	"lazygit",
+	"yq",
+    ]
 [packages.pacman.personal_computer]
-    packages = []
+    packages = [
+	"elinks",
+    ]
 [packages.yay]
     to_remove = []
 [packages.yay.base]

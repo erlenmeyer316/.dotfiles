@@ -8,6 +8,11 @@ packages=(
     {{ range $package := .packages.pacman.base.packages }}
         "{{ $package }}"
     {{ end }}
+    {{ if .personal_computer }}
+        {{ range $package := .packages.pacman.personal_computer.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ end}}
 )
 
 header "Installing packages with pacman"
