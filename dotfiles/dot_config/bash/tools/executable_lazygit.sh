@@ -1,1 +1,3 @@
-alias lz="lazygit"
+if [ $(command -v "lazygit") ]; then
+    alias lz="lazygit"
+fi
