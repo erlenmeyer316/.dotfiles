@@ -2,5 +2,6 @@
 #env | grep ^CHEZMOI
 
 if [ -f "$HOME/.bash_profile" ]; then
-   source "$HOME/.bash_profile"
+   . "$HOME/.bash_profile"
+   echo "Refreshed bash session"
 fi
