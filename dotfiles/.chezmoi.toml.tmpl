@@ -6,6 +6,7 @@
 {{- $user_name := promptStringOnce . "$user_name" "Enter your name:" -}}
 {{- $email_address := promptStringOnce . "email_address" "Enter your email address:" -}}
 {{- $personal_computer := promptBoolOnce . "personal_computer" "Is this a personal computer? (y/N)" false -}}
+{{- $dev_computer := promptBoolOnce . "dev_computer" "Is this a development computer? (y/N)" false -}}
 {{- $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from keepassxc (Y/n)" true -}}
 {{- $kpxc_db := promptStringOnce . "kpxc_db" "Path to keepassxc database (Press enter to skip)" "" -}}
 

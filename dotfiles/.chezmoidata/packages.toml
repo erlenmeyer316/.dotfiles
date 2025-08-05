@@ -11,6 +11,7 @@
 	"man-db",
 	"man-pages",
 	"neovim",
+	"networkmanager",
 	"ranger",
 	"ripgrep",
 	"starship",
@@ -28,6 +29,11 @@
 [packages.pacman.personal_computer]
     packages = [
 	"elinks",
+	"aerc",
+	"keepassxc",
+	# calendar client
+	# 
+
     ]
 [packages.yay]
     to_remove = []
