@@ -144,20 +144,11 @@ set mime.type.image.xml+svg = "svg"
 set mime.type.image.svg+xml = "svg"
 
 # Download to this folder
-set document.download.directory = "/home/dion/tmp/"
+set document.download.directory = "{{ .chezmoi.homeDir }}/tmp/"
 
-# I can't be bothered to set up certificate verification on Gemini
-set connection.ssl.gemini_cert_verify = 0
 
 # Sometimes curl is better, but I find it slower
 set protocol.http.use_curl = 0
-
-# Just give up on JavaScript.
-set ecmascript.enable = 0
-# If JS is enabled, pop up error messages
-set ecmascript.error_reporting = 1
-# Log JS errors to ~/.config/elinks/console.log
-set ecmascript.enable_console_log = 1
 
 # Prioritise showing alt/title text, and fallback to image filenames
 set document.browse.images.show_as_links = 1

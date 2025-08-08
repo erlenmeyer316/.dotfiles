@@ -3,6 +3,8 @@
 [[ -f "$HOME/.config/bash/functions.sh" ]] && . "$HOME/.config/bash/functions.sh"
 [[ -f "$HOME/.config/bash/prompt.sh" ]] && . "$HOME/.config/bash/prompt.sh"
 
+[[ -f "$HOME/.config/bash/theme-dracula.sh" ]] && . "$HOME/.config/bash/theme-dracula.sh"
+
 for file in $HOME/.config/bash/tools/*.sh; do
     . "$file"
 done
