@@ -8,6 +8,7 @@
         "base-devel",
 	"fastfetch",
 	"fzf",
+	"fd",
 	"man-db",
 	"man-pages",
 	"neovim",
@@ -17,6 +18,7 @@
 	"starship",
 	"trash-cli",
 	"xdg-user-dirs",
+	"xsel"
     ]
 [packages.pacman.development_computer]
     packages = [
