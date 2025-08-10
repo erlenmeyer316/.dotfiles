@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+{{ if eq .osid "linux-arch" }}
+
+{{ template "shared_script_utils.bash" . }}
+
+packages=(
+    {{ range $package := .packages.yay.base.packages }}
+        "{{ $package }}"
+    {{ end }}
+    {{ if .personal_computer }}
+        {{ range $package := .packages.yay.personal_computer.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ end}}
+)
+
+header "Installing packages with yay"
+yay -Sy 
+
+for package in "${packages[@]}"; do
+   if yay -Qqe | grep "${package}" &> /dev/null; then
+       info "Package ${package} is already installed"
+       continue
+   fi
+   if yay -Ss "${package}" | grep "${package}" &> /dev/null; then
+       yay -Sy ${package} -y
+   else
+       warning "Package ${package} is not available in yay"
+   fi
+done
+
+success "yay packages installed"
+_safeExit_
+
+{{ end }}

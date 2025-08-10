@@ -33,13 +33,14 @@
 	"elinks",
 	"aerc",
 	"keepassxc",
-	# calendar client
-	# 
-
     ]
 [packages.yay]
     to_remove = []
 [packages.yay.base]
+    packages = [
+        "fbterm",
+    ]
+[packages.yay.personal_computer]
     packages = []
 [packages.brew]
     to_remove = []

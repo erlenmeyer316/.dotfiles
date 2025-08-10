@@ -16,6 +16,15 @@ did_remove_package=false
           sudo pacman -Rns {{ $package }}
       fi
    {{ end }}
+
+   {{ if lookPath "yay" }}
+      {{ range $package := .packages.yay.to_remove }}
+          if yay -Qqe | grep "{{ $package }}" &> /dev/null; then
+              did_remove_package=true
+	      yay -Rns {{ $package }}
+	  fi
+      {{ end }}
+   {{ end }}
 {{ end }}
 
 {{ if eq .osid "linux-debian" }}
