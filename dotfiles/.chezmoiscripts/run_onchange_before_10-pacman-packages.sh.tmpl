@@ -24,7 +24,8 @@ for package in "${packages[@]}"; do
        continue
    fi
    if pacman -Ss "${package}" | grep "${package}" &> /dev/null; then
-       sudo pacman -Sy ${package} -y
+      info "Installing ${package}"
+      sudo pacman -S --noconfirm --quiet ${package}
    else
        warning "Package ${package} is not available in pacman"
    fi
