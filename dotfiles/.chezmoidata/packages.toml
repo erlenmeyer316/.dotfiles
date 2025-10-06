@@ -42,11 +42,40 @@
     ]
 [packages.yay.personal_computer]
     packages = []
-[packages.brew]
-    to_remove = []
-[packages.brew.base]
-    packages = []
 [packages.apt]
-    to_remove = []
+    to_remove = [
+        "neofetch",
+	"w3m",
+    ]
 [packages.apt.base]
-    packages = []
+    packages = [
+        "base-devel",
+	"fastfetch",
+	"fzf",
+	"fd",
+	"man-db",
+	"man-pages",
+	"neovim",
+	"networkmanager",
+	"ranger",
+	"ripgrep",
+	"starship",
+	"trash-cli",
+	"xdg-user-dirs",
+	"xsel",
+	"fbterm"
+    ]
+[packages.apt.development_computer]
+    packages = [
+	"git",
+	"github-cli",
+	"jq",	
+	"lazygit",
+	"yq",
+    ]
+[packages.apt.personal_computer]
+    packages = [
+	"elinks",
+	"aerc",
+	"keepassxc",
+    ]

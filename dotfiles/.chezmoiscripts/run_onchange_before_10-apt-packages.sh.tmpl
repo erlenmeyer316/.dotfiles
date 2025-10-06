@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+{{ if eq .osid "linux-debian" }}
+
+{{ template "shared_script_utils.bash" . }}
+
+packages=(
+    {{ range $package := .packages.apt.base.packages }}
+        "{{ $package }}"
+    {{ end }}
+    {{ if .personal_computer }}
+        {{ range $package := .packages.apt.personal_computer.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ end}}
+)
+
+header "Installing packages with apt"
+sudo apt update 
+
+for package in "${packages[@]}"; do
+   if apt list --installed | grep "${package}" &> /dev/null; then
+       info "Package ${package} is already installed"
+       continue
+   fi
+   if apt search "${package}" | grep "${package}" &> /dev/null; then
+      info "Installing ${package}"
+      sudo apt -qq install ${package} -y
+   else
+       warning "Package ${package} is not available in apt"
+   fi
+done
+
+success "apt packages installed"
+_safeExit_
+
+{{ end }}

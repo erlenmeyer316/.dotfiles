@@ -15,6 +15,9 @@ case $ID in
 	echo "Installing keepassxc"
         sudo pacman -Sy keepassxc
         ;;
+    debian)
+	echo "Installing keepassxc"
+	sudo apt install keepassxc -y
     *)
         echo "${ID} is unsupported"
 	exit 1
