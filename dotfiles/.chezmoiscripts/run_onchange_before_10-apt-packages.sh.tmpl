@@ -25,7 +25,7 @@ for package in "${packages[@]}"; do
    fi
    if apt search "${package}" | grep "${package}" &> /dev/null; then
       info "Installing ${package}"
-      sudo apt -qq install ${package} -y
+      sudo apt-get -qq install ${package} -y
    else
        warning "Package ${package} is not available in apt"
    fi

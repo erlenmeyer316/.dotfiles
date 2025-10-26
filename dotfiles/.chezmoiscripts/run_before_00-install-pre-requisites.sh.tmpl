@@ -79,11 +79,11 @@
   # Install the missing packages
   if ${install}; then
       header "Updating package list"
-      sudo apt update
+      sudo apt-get update
 
       for pkg in "${to_install[@]}"; do
-          header "Installing ${pkg}"
-	  sudo apt install "${pkg}" -y
+            header "Installing ${pkg}"
+	        sudo apt-get install "${pkg}" -y
       done
   fi
 

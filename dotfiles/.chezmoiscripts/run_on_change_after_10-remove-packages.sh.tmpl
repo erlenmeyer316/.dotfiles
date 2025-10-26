@@ -31,7 +31,7 @@ did_remove_package=false
    {{ range $package := .packages.apt.to_remove }}
       if apt list --intstalled | grep "{{ $package }}" &> /dev/null; then
           did_remove_package=true
-          sudo apt purge {{ $package }}
+          sudo apt-get purge {{ $package }}
       fi
    {{ end }}
 
