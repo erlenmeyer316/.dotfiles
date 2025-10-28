@@ -49,7 +49,7 @@
     ]
 [packages.apt.base]
     packages = [
-        "base-devel",
+        "build-essential",
 	"fastfetch",
 	"fzf",
 	"fd",

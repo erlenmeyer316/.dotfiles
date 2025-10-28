@@ -19,11 +19,11 @@ header "Installing packages with apt"
 sudo apt update 
 
 for package in "${packages[@]}"; do
-   if apt list --installed | grep "${package}" &> /dev/null; then
+   if apt-get list --installed | grep "${package}" &> /dev/null; then
        info "Package ${package} is already installed"
        continue
    fi
-   if apt search "${package}" | grep "${package}" &> /dev/null; then
+   if apt-get search "${package}" | grep "${package}" &> /dev/null; then
       info "Installing ${package}"
       sudo apt-get -qq install ${package} -y
    else
