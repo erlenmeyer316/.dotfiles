@@ -29,11 +29,12 @@ did_remove_package=false
 
 {{ if eq .osid "linux-debian" }}
    {{ range $package := .packages.apt.to_remove }}
-      if apt list --intstalled | grep "{{ $package }}" &> /dev/null; then
+      if dpkg -s "{{ $package }}" &> /dev/null; then
           did_remove_package=true
           sudo apt-get purge {{ $package }}
       fi
    {{ end }}
+   sudo apt-get autoremove
 
 {{ end }}
 
