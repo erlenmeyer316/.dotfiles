@@ -19,7 +19,7 @@ header "Installing packages with apt"
 sudo apt update 
 
 for package in "${packages[@]}"; do
-   if apt-get list --installed | grep "${package}" &> /dev/null; then
+   if dpkg -s "${package}" &> /dev/null; then
        info "Package ${package} is already installed"
        continue
    fi
