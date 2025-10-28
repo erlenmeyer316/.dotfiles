@@ -16,11 +16,11 @@ case $ID in
         sudo pacman -Sy keepassxc
         ;;
     debian)
-	    echo "Installing keepassxc"
-	    sudo apt-get install keepassxc -y
+        echo "Installing keepassxc"
+	sudo apt-get install keepassxc -y
         ;;
     *)
         echo "${ID} is unsupported"
-	    exit 1
-	    ;;
+	exit 1
+	;;
 esac
