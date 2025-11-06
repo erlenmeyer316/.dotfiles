@@ -34,6 +34,8 @@
 	"aerc",
 	"keepassxc",
     ]
+[packages.pacman.wm_computer]
+    packages = []
 [packages.yay]
     to_remove = []
 [packages.yay.base]
@@ -41,6 +43,8 @@
         "fbterm",
     ]
 [packages.yay.personal_computer]
+    packages = []
+[packages.yay.wm_computer]
     packages = []
 [packages.apt]
     to_remove = [
@@ -79,3 +83,15 @@
 	"aerc",
 	"keepassxc",
     ]
+[packages.apt.wm_computer]
+    packages = []
+[packages.flatpak]
+    to_remove = []
+[packages.flatpak.base]
+    packages = []
+[packages.flatpak.development_computer]
+    packages = []
+[packages.flatpak.personal_computer]
+    packages = []
+[packages.flatpak.wm_computer]
+    packages = []    
