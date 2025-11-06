@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
+{{ if eq .osid "linux-arch" }}
+
 {{ template "shared_script_utils.bash" . }}
 
-{{ if eq .osid "darwin" }}
-  # Install brew + other required packages for dotfile installation
-{{ end }}
-
-{{ if eq .osid "linux-arch" }}
   # Install yay + other required packages for dotfile installation
   install=false
 
@@ -40,7 +37,7 @@
       done
   fi
 
-  # Install yay package manager if not install
+  # Install yay package manager if not installed
   if ! command -v yay &>/dev/null; then
       mkdir -p $HOME/Source
       header "Cloning yay repository"
@@ -51,42 +48,7 @@
   fi
 
 
-{{ end }}
-
-{{ if eq .osid "linux-debian" }}
-  # Install required packages for dotfile installation
-  install=false
-
-  # Declare a regular array for the package names
-  declare -a packages=(
-      "curl"
-      "unzip"
-      "wget"
-      "git"
-      "build-essential"
-  )
-
-  to_install=()
-
-  # Loop through the commands to check if they're installed
-  for cmd in "${packages[@]}"; do
-      if ! command -v "${cmd}" &>/dev/null; then
-          install=true
-	  to_install+=("${cmd}")
-      fi
-  done
-
-  # Install the missing packages
-  if ${install}; then
-      header "Updating package list"
-      sudo apt-get update
-
-      for pkg in "${to_install[@]}"; do
-            header "Installing ${pkg}"
-	        sudo apt-get install "${pkg}" -y
-      done
-  fi
-
-{{ end }}
-
 _safeExit_
+
+{{ end }}
+

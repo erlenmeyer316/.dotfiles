@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+{{ if eq .osid "linux-debian" }}
+
+{{ template "shared_script_utils.bash" . }}
+
+  # Install required packages for dotfile installation
+  install=false
+
+  # Declare a regular array for the package names
+  declare -a packages=(
+      "curl"
+      "unzip"
+      "wget"
+      "git"
+      "build-essential"
+      "flatpak"
+  )
+
+  to_install=()
+
+  # Loop through the commands to check if they're installed
+  for cmd in "${packages[@]}"; do
+      if ! command -v "${cmd}" &>/dev/null; then
+          install=true
+	  to_install+=("${cmd}")
+      fi
+  done
+
+  # Install the missing packages
+  if ${install}; then
+      header "Updating package list"
+      sudo apt-get update
+
+      for pkg in "${to_install[@]}"; do
+            header "Installing ${pkg}"
+	        sudo apt-get install "${pkg}" -y
+      done
+  fi
+
+  # Add flatpak repository
+  flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+_safeExit_
+
+{{ end }}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-{{ if eq .osid "linux-debian" }}
+{{ if lookPath "apt-get" }}
 
 {{ template "shared_script_utils.bash" . }}
 
@@ -16,7 +16,7 @@ packages=(
 )
 
 header "Installing packages with apt"
-sudo apt update 
+sudo apt-get update 
 
 for package in "${packages[@]}"; do
    if dpkg -s "${package}" &> /dev/null; then

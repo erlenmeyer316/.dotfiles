@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+{{ if lookPath "apt-get" }}
+
+{{ template "shared_script_utils.bash" . }}
+
+header "Checking for apt packages to remove"
+
+did_remove_package=false
+
+{{ range $package := .packages.apt.to_remove }}
+    if dpkg -s "{{ $package }}" &> /dev/null; then
+        did_remove_package=true
+        sudo apt-get purge {{ $package }}
+    fi
+{{ end }}
+sudo apt-get autoremove
+
+_safeExit_
+
+{{ end }}

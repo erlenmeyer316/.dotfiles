@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+{{ if lookPath "flatpak" }}
+
+{{ template "shared_script_utils.bash" . }}
+
+packages=(
+    {{ range $package := .packages.flatpak.base.packages }}
+        "{{ $package }}"
+    {{ end }}
+    {{ if .personal_computer }}
+        {{ range $package := .packages.flatpak.personal_computer.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ end}}
+)
+
+header "Installing packages with flatpak"
+
+#sudo apt update 
+
+#for package in "${packages[@]}"; do
+#   if dpkg -s "${package}" &> /dev/null; then
+#       info "Package ${package} is already installed"
+#       continue
+#   fi
+#   if apt-get search "${package}" | grep "${package}" &> /dev/null; then
+#      info "Installing ${package}"
+#      sudo apt-get -qq install ${package} -y
+#   else
+#       warning "Package ${package} is not available in apt"
+#   fi
+#done
+
+success "flatpak packages installed"
+
+_safeExit_
+
+{{ end }}

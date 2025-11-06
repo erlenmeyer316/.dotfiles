@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-{{ if eq .osid "linux-arch" }}
+{{ if lookPath "pacman" }}
 
 {{ template "shared_script_utils.bash" . }}
 

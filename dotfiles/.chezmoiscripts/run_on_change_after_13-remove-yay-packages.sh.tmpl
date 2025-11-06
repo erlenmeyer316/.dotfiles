@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+{{ if lookPath "yay" }}
+
+{{ template "shared_script_utils.bash" . }}
+
+header "Checking for yay packages to remove"
+
+did_remove_package=false
+
+{{ range $package := .packages.yay.to_remove }}
+    if yay -Qqe | grep "{{ $package }}" &> /dev/null; then
+        did_remove_package=true
+        yay -Rns {{ $package }}
+    fi
+{{ end }}
+
+_safeExit_
+
+{{ end }}
