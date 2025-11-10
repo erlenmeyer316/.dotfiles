@@ -50,6 +50,7 @@
     to_remove = [
         "neofetch",
 	"w3m",
+	"gnome-tour"
     ]
 [packages.apt.base]
     packages = [
