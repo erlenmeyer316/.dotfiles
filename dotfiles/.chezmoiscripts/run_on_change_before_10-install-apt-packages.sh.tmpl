@@ -13,6 +13,16 @@ packages=(
 	    "{{ $package }}"
 	{{ end }}
     {{ end}}
+    {{ if .dev_computer }}
+        {{ range $package := .packages.apt.dev_computer.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ end}}
+    {{ if .wm_computer }}
+        {{ range $package := .packages.apt.wm_computer.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ end}}
 )
 
 header "Installing packages with apt"
@@ -23,7 +33,7 @@ for package in "${packages[@]}"; do
        info "Package ${package} is already installed"
        continue
    fi
-   if apt-get search "${package}" | grep "${package}" &> /dev/null; then
+   if apt-cache policy "${package}" | grep -q "Candidate:"; then
       info "Installing ${package}"
       sudo apt-get -qq install ${package} -y
    else

@@ -70,18 +70,19 @@
 	"xsel",
 	"fbterm"
     ]
-[packages.apt.development_computer]
+[packages.apt.dev_computer]
     packages = [
 	"git",
-	"github-cli",
 	"jq",	
 	"lazygit",
 	"yq",
+	"android-tools-adb",
+	"fastboot"
+
     ]
 [packages.apt.personal_computer]
     packages = [
 	"elinks",
-	"aerc",
 	"keepassxc",
     ]
 [packages.apt.wm_computer]
@@ -90,7 +91,7 @@
     to_remove = []
 [packages.flatpak.base]
     packages = []
-[packages.flatpak.development_computer]
+[packages.flatpak.dev_computer]
     packages = []
 [packages.flatpak.personal_computer]
     packages = []
