@@ -13,24 +13,34 @@ packages=(
 	    "{{ $package }}"
 	{{ end }}
     {{ end}}
+    {{ if .dev_computer }}
+        {{ range $package := .packages.flatpak.dev_computer.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ end}}
+    {{ if .wm_computer }}
+        {{ range $package := .packages.flatpak.wm_computer.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ end}}
 )
 
 header "Installing packages with flatpak"
 
-#sudo apt update 
+sudo flatpak update 
 
-#for package in "${packages[@]}"; do
-#   if dpkg -s "${package}" &> /dev/null; then
-#       info "Package ${package} is already installed"
-#       continue
-#   fi
-#   if apt-get search "${package}" | grep "${package}" &> /dev/null; then
-#      info "Installing ${package}"
-#      sudo apt-get -qq install ${package} -y
-#   else
-#       warning "Package ${package} is not available in apt"
-#   fi
-#done
+for package in "${packages[@]}"; do
+   if flatpak list --app | grep -q "${package}"; then
+       info "Package ${package} is already installed"
+       continue
+   fi
+   if flatpak search "${package}" | grep "${package}" &> /dev/null; then
+      info "Installing ${package}"
+      sudo flatpak install ${package} -y
+    else
+       warning "Package ${package} is not available in flatpak"
+   fi
+done
 
 success "flatpak packages installed"
 

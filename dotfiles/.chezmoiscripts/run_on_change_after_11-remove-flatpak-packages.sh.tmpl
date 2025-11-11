@@ -9,7 +9,7 @@ header "Checking for flatpaks to remove"
 did_remove_package=false
 
 {{ range $package := .packages.flatpak.to_remove }}
-  if yay -Qqe | grep "{{ $package }}" &> /dev/null; then
+  if flatpak list --app | grep -q "{{ $package }}"; then
       did_remove_package=true
       flatpak remove {{ $package }}
   fi

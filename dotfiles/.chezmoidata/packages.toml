@@ -88,12 +88,19 @@
 [packages.apt.wm_computer]
     packages = []
 [packages.flatpak]
-    to_remove = []
+    to_remove = [
+        "org.gnome.gitg", 
+        "io.github.shiftey.Desktop" 
+    ]
 [packages.flatpak.base]
-    packages = []
+    packages = [
+    ]
 [packages.flatpak.dev_computer]
     packages = []
 [packages.flatpak.personal_computer]
     packages = []
 [packages.flatpak.wm_computer]
-    packages = []    
+    packages = [
+    	"io.github.kolunmi.Bazaar",
+        "md.obsidian.Obsidian"
+    ]    
