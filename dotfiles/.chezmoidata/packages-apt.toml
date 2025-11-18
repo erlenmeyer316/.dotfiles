@@ -1,0 +1,42 @@
+[packages.apt]
+    to_remove = [
+        "neofetch",
+	"w3m",
+	"gnome-tour",
+	"boxes"
+    ]
+[packages.apt.base]
+    packages = [
+        "build-essential",
+	"fastfetch",
+	"fzf",
+	"fd-find",
+	"man-db",
+	"manpages",
+	"neovim",
+	"network-manager",
+	"ranger",
+	"ripgrep",
+	"starship",
+	"trash-cli",
+	"xdg-user-dirs",
+	"xsel",
+	"fbterm"
+    ]
+[packages.apt.dev_computer]
+    packages = [
+	"git",
+	"jq",	
+	"lazygit",
+	"yq",
+	"android-tools-adb",
+	"fastboot",
+	"docker.io",
+	"docker-cli",
+	"docker-compose"
+    ]
+[packages.apt.personal_computer]
+    packages = [
+	"elinks",
+	"keepassxc",
+    ]

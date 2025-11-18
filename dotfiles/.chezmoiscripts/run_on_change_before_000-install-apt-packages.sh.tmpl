@@ -18,11 +18,6 @@ packages=(
 	    "{{ $package }}"
 	{{ end }}
     {{ end}}
-    {{ if .wm_computer }}
-        {{ range $package := .packages.apt.wm_computer.packages }}
-	    "{{ $package }}"
-	{{ end }}
-    {{ end}}
 )
 
 header "Installing packages with apt"
@@ -33,7 +28,7 @@ for package in "${packages[@]}"; do
        info "Package ${package} is already installed"
        continue
    fi
-   if apt-cache policy "${package}" | grep -q "Candidate:"; then
+   if apt-cache policy "${package}" | grep  "Candidate:" &> /dev/null; then
       info "Installing ${package}"
       sudo apt-get -qq install ${package} -y
    else
