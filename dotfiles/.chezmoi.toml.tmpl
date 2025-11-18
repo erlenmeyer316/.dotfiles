@@ -7,7 +7,6 @@
 {{- $email_address := promptStringOnce . "email_address" "Enter your email address:" -}}
 {{- $personal_computer := promptBoolOnce . "personal_computer" "Is this a personal computer? (y/N)" false -}}
 {{- $dev_computer := promptBoolOnce . "dev_computer" "Is this a development computer? (y/N)" false -}}
-{{- $wm_computer := promptBoolOnce . "wm_computer" "Does this computer have use a window manager? (y/N)" false -}}
 {{- $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from keepassxc (Y/n)" true -}}
 {{- $kpxc_db := promptStringOnce . "kpxc_db" "Path to keepassxc database (Press enter to skip)" "" -}}
 
@@ -17,7 +16,6 @@
     email_address = {{ $email_address | quote }}
     personal_computer = {{ $personal_computer }}
     dev_computer = {{ $dev_computer }}
-    wm_computer = {{ $wm_computer }}
     use_secrets = {{ $use_secrets }}
     xdg_cache_dir = "{{ .chezmoi.homeDir }}/.cache"
     xdg_config_dir = "{{ .chezmoi.homeDir }}/.config"
