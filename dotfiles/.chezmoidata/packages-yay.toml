@@ -1,8 +1,0 @@
-[packages.yay]
-    to_remove = []
-[packages.yay.base]
-    packages = [
-        "fbterm",
-    ]
-[packages.yay.personal_computer]
-    packages = []

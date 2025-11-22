@@ -11,10 +11,6 @@ else
 fi
 
 case $ID in
-    arch)
-	echo "Installing keepassxc"
-        sudo pacman -Sy keepassxc
-        ;;
     debian)
         echo "Installing keepassxc"
 	sudo apt-get install keepassxc -y

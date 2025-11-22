@@ -24,6 +24,11 @@ header "Installing packages with apt"
 sudo apt-get update 
 
 for package in "${packages[@]}"; do
+   if [ "${package}" == "syncthing" ]; then
+      warning "Eat shit dickheel!"
+      continue
+   fi
+	
    if dpkg -s "${package}" &> /dev/null; then
        info "Package ${package} is already installed"
        continue

@@ -1,0 +1,13 @@
+[packages.custom]
+    to_remove = [
+    ]
+[packages.custom.base]
+    packages = [
+	"syncthing"
+    ]
+[packages.custom.dev_computer]
+    packages = [
+    ]
+[packages.custom.personal_computer]
+    packages = [   
+    ]
