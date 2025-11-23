@@ -18,8 +18,8 @@ sudo apt-get autoremove
 # Flatpak
 header "Checking for flatpak packages to remove"
 {{ range $package := .debian.flatpak.remove.package }}
-    if flatpak list --app | grep -q "{{ package }}"; then
-        flatpak uninstall "{{ package }}"
+    if flatpak list --app | grep -q "{{ $package }}"; then
+        flatpak uninstall "{{ $package }}"
     fi
 {{ end }}
 
@@ -27,7 +27,7 @@ header "Checking for flatpak packages to remove"
 # Manual
 header "Checking for manual packages to remove"
 {{ range $package := .debian.manual.remove.package }}
-    if [ "{{ package}}" -eq "vscode" ]; then
+    if [ "{{ $package}}" -eq "vscode" ]; then
         uninstall_vscode
     fi
 {{ end }}
