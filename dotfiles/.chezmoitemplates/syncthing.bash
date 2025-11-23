@@ -3,33 +3,126 @@ set -euo pipefail
 
 {{ template "shared_script_utils.bash" . }}
 
-install_syncthing() {
-    if dpkg -s code &> /dev/null; then
-       info "Visual studio code is already installed"
-       continue
+#!/usr/bin/env bash
+set -euo pipefail
+
+# DickiNas remote device ID
+DICKINAS_ID="7QPLJJ2-3ZBQKPB-5OWUBZI-YF3MHST-QIRPSEC-PMNA426-FB64FU2-BOLNTQQ"
+
+CONFIG_DIR="$HOME/.config/syncthing"
+CONFIG_FILE="$CONFIG_DIR/config.xml"
+LOCAL_DIR="$HOME/.local/state/syncthing"
+SYNC_DIR="$HOME/Sync"
+
+_ensure_packages() {
+     apt update -y
+     apt install -y syncthing xmlstarlet
+}
+
+_generate_config_if_missing() {
+    if [[ ! -f "$CONFIG_FILE" ]]; then
+        echo "[*] Generating fresh Syncthing config"
+        mkdir -p "$CONFIG_DIR"
+        syncthing --generate="$CONFIG_DIR"
+    else
+        echo "[✓] Config already exists"
+    fi
+    
+    if [[ ! -d "$LOCAL_DIR" ]]; then
+       echo "[*] Creating local dir"
+       mkdir -p "$LOCAL_DIR"
+    else
+       echo "[✓] Local dir already exists"
+    fi
+}
+
+_set_local_device_name() {
+    local hostname_val
+    hostname_val=$(hostname)
+
+    # Syncthing always puts the local device as the first <device> entry
+    local current_name
+    current_name=$(xmlstarlet sel -t -v "//device[@id][1]/@name" "$CONFIG_FILE")
+
+    if [[ "$current_name" != "$hostname_val" ]]; then
+        echo "[*] Setting local device name to $hostname_val"
+        xmlstarlet ed --inplace \
+            -u "//device[@id][1]/@name" \
+            -v "$hostname_val" \
+            "$CONFIG_FILE"
+    else
+        echo "[✓] Local device name is already $hostname_val"
+    fi
+}
+
+_set_default_folder_path() {
+    mkdir -p "$SYNC_DIR"
+
+    local exists
+    exists=$(xmlstarlet sel -t -v "count(/configuration/defaults/folder)" "$CONFIG_FILE")
+
+    if [[ "$exists" == "0" ]]; then
+        echo "[*] Creating <defaults><folder> with path $SYNC_DIR"
+        xmlstarlet ed --inplace \
+          -s "/configuration" -t elem -n "defaults" -v "" \
+          -s "/configuration/defaults" -t elem -n "folder" -v "" \
+          -i "/configuration/defaults/folder" -t attr -n "path" -v "$SYNC_DIR" \
+          "$CONFIG_FILE"
+    else
+        local current
+        current=$(xmlstarlet sel -t -v "/configuration/defaults/folder/@path" "$CONFIG_FILE")
+
+        if [[ "$current" != "$SYNC_DIR" ]]; then
+            echo "[*] Updating default folder path to $SYNC_DIR"
+            xmlstarlet ed --inplace \
+              -u "/configuration/defaults/folder/@path" \
+              -v "$SYNC_DIR" \
+              "$CONFIG_FILE"
+        else
+            echo "[✓] Default folder path already set to $SYNC_DIR"
+        fi
+    fi
+}
+
+_add_dickinas_device() {
+    local exists
+    exists=$(xmlstarlet sel -t -v "count(//device[@id='$DICKINAS_ID'])" "$CONFIG_FILE")
+
+    if [[ "$exists" == "0" ]]; then
+        echo "[*] Adding DickiNas device entry"
+        xmlstarlet ed --inplace \
+          -s "//configuration" -t elem -n "deviceTMP" -v "" \
+          -i "//deviceTMP" -t attr -n "id" -v "$DICKINAS_ID" \
+          -i "//deviceTMP" -t attr -n "name" -v "DickiNas" \
+          -i "//deviceTMP" -t attr -n "autoAcceptFolders" -v "true" \
+          -s "//deviceTMP" -t elem -n "address" -v "dynamic" \
+          -r "//deviceTMP" -v "device" \
+          "$CONFIG_FILE"
+    else
+        echo "[✓] DickiNas already configured"
+    fi
+}
+
+_start_syncthing_background() {
+    if pgrep syncthing >/dev/null 2>&1; then
+        echo "[✓] Syncthing already running"
+        return
     fi
 
-	# Microsoft GPG key
-	curl -fsSL https://packages.microsoft.com/keys/microsoft.asc |
-	  gpg --dearmor |
-	  sudo tee /usr/share/keyrings/microsoft.gpg > /dev/null
+    echo "[*] Starting Syncthing"
+    syncthing serve --no-browser
+}
 
-	# Add VS Code repo (Debian/Ubuntu)
-	echo "deb [arch=$(dpkg --print-architecture) \
-	signed-by=/usr/share/keyrings/microsoft.gpg] \
-	https://packages.microsoft.com/repos/code stable main" |
-	  sudo tee /etc/apt/sources.list.d/vscode.list
 
-	# Update and install
-	sudo apt-get update -y
-	info "Installing visual studio code"
-	sudo apt-get install -y code
+install_syncthing() {
+    ensure_packages
+    generate_config_if_missing
+    set_local_device_name
+    set_default_folder_path
+    add_dickinas_device
+    start_syncthing_background
 }
 
 uninstall_syncthing() {
-	if dpkg -s code &> /dev/null; then
-	   info "Uninstalling visual studio code"
-       sudo apt-get uninstall -y code
-	   sudo apt-get autoremove
-    fi
+
 }

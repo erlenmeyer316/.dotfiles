@@ -15,9 +15,6 @@
         "apt-transport-https"
         "unzip"
         "wget"
-################################
-
-        "git"
         "build-essential"
         "flatpak"
     ]
@@ -49,7 +46,7 @@
 	    "docker-cli",
 	    "docker-compose",
     ]
-[debian.apt.terminal]
+[debian.apt.term]
     packages = [
         "elinks",
         "fbterm"   
@@ -82,5 +79,5 @@
         "vscode",
         "github-cli"
     ]        
-[debian.manual.terminal]
+[debian.manual.term]
     packages = []

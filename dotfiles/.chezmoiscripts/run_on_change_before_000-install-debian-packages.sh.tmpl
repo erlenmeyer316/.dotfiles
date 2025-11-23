@@ -16,7 +16,7 @@ packages=(
 	    "{{ $package }}"
 	{{ end }}
     {{ if .terminal_packages }}
-        {{ range $package := .debian.apt.terminal.packages }}
+        {{ range $package := .debian.apt.term.packages }}
 	    "{{ $package }}"
     {{ end}}
 )
@@ -51,7 +51,7 @@ flatpaks=(
 	    "{{ $package }}"
 	{{ end }}
     {{ if .terminal_packages }}
-        {{ range $package := .debian.flatpak.terminal.packages }}
+        {{ range $package := .debian.flatpak.term.packages }}
 	    "{{ $package }}"
     {{ end}}
 )
@@ -77,6 +77,25 @@ success "flatpak packages installed"
 
 
 # Manual
+manual=(
+    {{ range $package := .debian.manual.common.packages }}
+        "{{ $package }}"
+    {{ end }}
+    {{ if .dev_packages }}
+        {{ range $package := .debian.manual.dev.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ if .terminal_packages }}
+        {{ range $package := .debian.manual.term.packages }}
+	    "{{ $package }}"
+    {{ end}}
+)
 
+header "Installing manual packages"
+for package in in "${packages[@]}"; do
+    if [ "{{ package }}" -eq "vscode" ]; then
+        install_vscode
+    fi
+done
 
 {{ end }}
