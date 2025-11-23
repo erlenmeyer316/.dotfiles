@@ -21,11 +21,8 @@
     xdg_data_dir = "{{ .chezmoi.homeDir }}/.local/share"
     xdg_state_dir = "{{ .chezmoi.homeDir }}/.local/state"
 
-{{- if ne $kpxc_db "" }}
 [keepassxc]
 	database = "/home/erlenmeyer316/Sync/keepassxc/Passwords.kdbx"
-{{- end }}
-
 
 [hooks.read-source-state.pre]
 script = ".local/share/chezmoi/dotfiles/.pre-read-source-state-hook.sh"
