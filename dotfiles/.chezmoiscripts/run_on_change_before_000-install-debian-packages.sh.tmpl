@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+{{ if eq .osid "linux-debian" }}
+
+{{ template "shared_script_utils.bash" . }}
+{{ template "visual_studio_code.bash "}}
+
+
+# Apt
+packages=(
+    {{ range $package := .debian.apt.common.packages }}
+        "{{ $package }}"
+    {{ end }}
+    {{ if .dev_packages }}
+        {{ range $package := .debian.apt.dev.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ if .terminal_packages }}
+        {{ range $package := .debian.apt.terminal.packages }}
+	    "{{ $package }}"
+    {{ end}}
+)
+
+header "Installing packages with apt"
+sudo apt-get update 
+
+for package in "${packages[@]}"; do
+   if dpkg -s "${package}" &> /dev/null; then
+       info "Package ${package} is already installed"
+       continue
+   fi
+   if apt-cache policy "${package}" | grep  "Candidate:" &> /dev/null; then
+      info "Installing ${package}"
+      sudo apt-get -qq install ${package} -y
+   else
+       warning "Package ${package} is not available in apt"
+   fi
+done
+
+success "apt packages installed"
+_safeExit_
+
+
+# Flatpak
+flatpaks=(
+    {{ range $package := .debian.flatpak.common.packages }}
+        "{{ $package }}"
+    {{ end }}
+    {{ if .dev_packages }}
+        {{ range $package := .debian.flatpak.dev.packages }}
+	    "{{ $package }}"
+	{{ end }}
+    {{ if .terminal_packages }}
+        {{ range $package := .debian.flatpak.terminal.packages }}
+	    "{{ $package }}"
+    {{ end}}
+)
+
+header "Installing packages with flatpak"
+
+sudo flatpak update 
+
+for package in "${packages[@]}"; do
+   if flatpak list --app | grep -q "${package}"; then
+       info "Package ${package} is already installed"
+       continue
+   fi
+   if flatpak search "${package}" | grep "${package}" &> /dev/null; then
+      info "Installing ${package}"
+      sudo flatpak install ${package} -y
+    else
+       warning "Package ${package} is not available in flatpak"
+   fi
+done
+
+success "flatpak packages installed"
+
+
+# Manual
+
+
+{{ end }}

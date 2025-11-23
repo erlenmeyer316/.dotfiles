@@ -4,42 +4,33 @@
 
 {{ template "shared_script_utils.bash" . }}
 
-  # Install required packages for dotfile installation
-  install=false
+packages=(
+    {{ range $package := .debian.apt.base.packages }}
+        "{{ $package }}"
+    {{ end }}
+)
 
-  # Declare a regular array for the package names
-  declare -a packages=(
-      "curl"
-      "unzip"
-      "wget"
-      "git"
-      "build-essential"
-      "flatpak"
-  )
+header "Installing base packages with apt"
+sudo apt-get update 
 
-  to_install=()
+for package in "${packages[@]}"; do
+   if dpkg -s "${package}" &> /dev/null; then
+       info "Package ${package} is already installed"
+       continue
+   fi
+   if apt-cache policy "${package}" | grep  "Candidate:" &> /dev/null; then
+      info "Installing ${package}"
+      sudo apt-get -qq install ${package} -y
+   else
+       warning "Package ${package} is not available in apt"
+   fi
+done
 
-  # Loop through the commands to check if they're installed
-  for cmd in "${packages[@]}"; do
-      if ! command -v "${cmd}" &>/dev/null; then
-          install=true
-	  to_install+=("${cmd}")
-      fi
-  done
+success "base packages installed"
 
-  # Install the missing packages
-  if ${install}; then
-      header "Updating package list"
-      sudo apt-get update
-
-      for pkg in "${to_install[@]}"; do
-            header "Installing ${pkg}"
-	        sudo apt-get install "${pkg}" -y
-      done
-  fi
-
-  # Add flatpak repository
-  flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+header "configuring flatpak"
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+success "flatpak configured"
 
 _safeExit_
 

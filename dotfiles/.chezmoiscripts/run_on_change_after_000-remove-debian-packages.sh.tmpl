@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+{{ if eq .osid "linux-debian" }}
+
+{{ template "shared_script_utils.bash" . }}
+{{ template "visual_studio_code.bash "}}
+
+# Apt
+header "Checking for apt packages to remove"
+{{ range $package := .debian.apt.remove.packages }}
+    if dpkg -s "{{ $package }}" &> /dev/null; then
+        sudo apt-get purge {{ $package }}
+    fi
+{{ end }}
+
+sudo apt-get autoremove
+
+# Flatpak
+header "Checking for flatpak packages to remove"
+{{ range $package := .debian.flatpak.remove.package }}
+    if flatpak list --app | grep -q "{{ package }}"; then
+        flatpak uninstall "{{ package }}"
+    fi
+{{ end }}
+
+
+# Manual
+header "Checking for manual packages to remove"
+{{ range $package := .debian.manual.remove.package }}
+    if [ "{{ package}}" -eq "vscode" ]; then
+        uninstall_vscode
+    fi
+{{ end }}
+
+_safeExit_
+
+{{ end }}

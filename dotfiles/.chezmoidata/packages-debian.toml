@@ -1,0 +1,86 @@
+##############################
+# Apt 
+##############################
+[debian.apt.remove]
+    packages = [
+        "neofetch",
+	    "w3m",
+	    "gnome-tour",
+	    "boxes"
+    ]
+[debian.apt.base]
+    packages = [     
+        "curl"
+        "gpg"
+        "apt-transport-https"
+        "unzip"
+        "wget"
+################################
+
+        "git"
+        "build-essential"
+        "flatpak"
+    ]
+[debian.apt.common]
+    packages = [
+	    "fastfetch",
+	    "fzf",
+	    "fd-find",
+	    "man-db",
+	    "manpages",
+    	"neovim",
+    	"network-manager",
+    	"ranger",
+    	"ripgrep",
+    	"starship",
+    	"trash-cli",
+    	"xdg-user-dirs",
+    	"xsel",
+    ]
+[debian.apt.dev]
+    packages = [
+        "git",
+	    "jq",
+	    "lazygit",
+	    "yq",
+	    "android-tools-adb",
+	    "fastboot",
+	    "docker.io",
+	    "docker-cli",
+	    "docker-compose",
+    ]
+[debian.apt.terminal]
+    packages = [
+        "elinks",
+        "fbterm"   
+    ]
+
+################################
+# Flatpak
+################################    
+[debian.flatpak.remove]
+    packages = []
+[debian.flatpak.common]
+    packages = [
+        "io.github.kolunmi.Bazaar",
+        "md.obsidian.Obsidian"
+    ]
+
+################################
+# Manual
+################################
+[debian.manual.remove]
+    packages = []    
+[debian.manual.base]
+    packages = []    
+[debian.manual.common]
+    packages = [
+        "syncthing"
+    ]            
+[debian.manual.dev]
+    packages = [
+        "vscode",
+        "github-cli"
+    ]        
+[debian.manual.terminal]
+    packages = []
