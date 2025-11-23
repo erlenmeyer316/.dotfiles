@@ -6,17 +6,17 @@
         "neofetch",
 	    "w3m",
 	    "gnome-tour",
-	    "boxes"
+	    "boxes",
     ]
 [debian.apt.base]
     packages = [     
-        "curl"
-        "gpg"
-        "apt-transport-https"
-        "unzip"
-        "wget"
-        "build-essential"
-        "flatpak"
+        "curl",
+        "gpg",
+        "apt-transport-https",
+        "unzip",
+        "wget",
+        "build-essential",
+        "flatpak",
     ]
 [debian.apt.common]
     packages = [
@@ -49,7 +49,7 @@
 [debian.apt.term]
     packages = [
         "elinks",
-        "fbterm"   
+        "fbterm",   
     ]
 
 ################################
@@ -60,7 +60,7 @@
 [debian.flatpak.common]
     packages = [
         "io.github.kolunmi.Bazaar",
-        "md.obsidian.Obsidian"
+        "md.obsidian.Obsidian",
     ]
 
 ################################
@@ -72,12 +72,12 @@
     packages = []    
 [debian.manual.common]
     packages = [
-        "syncthing"
+        "syncthing",
     ]            
 [debian.manual.dev]
     packages = [
         "vscode",
-        "github-cli"
+        "github-cli",
     ]        
 [debian.manual.term]
     packages = []
