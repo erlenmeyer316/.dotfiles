@@ -9,7 +9,7 @@
 header "Checking for apt packages to remove"
 {{ range $package := .debian.apt.remove.packages }}
     if dpkg -s "{{ $package }}" &> /dev/null; then
-        sudo apt-get purge {{ $package }}
+        sudo apt-get purge {{ $package }} -y
     fi
 {{ end }}
 
@@ -19,7 +19,7 @@ sudo apt-get autoremove
 header "Checking for flatpak packages to remove"
 {{ range $package := .debian.flatpak.remove.packages }}
     if flatpak list --app | grep -q "{{ $package }}"; then
-        flatpak uninstall "{{ $package }}"
+        flatpak uninstall "{{ $package }}" -y
     fi
 {{ end }}
 
