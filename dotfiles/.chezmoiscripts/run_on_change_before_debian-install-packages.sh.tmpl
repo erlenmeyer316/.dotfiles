@@ -16,7 +16,7 @@ packages=(
 	        "{{ $package }}"
         {{ end }}
 	{{ end }}
-    {{ if .terminal_packages }}
+    {{ if .term_packages }}
         {{ range $package := .debian.apt.term.packages }}
 	        "{{ $package }}"
         {{ end }}
@@ -53,7 +53,7 @@ flatpaks=(
 	        "{{ $package }}"
         {{ end }}
 	{{ end }}
-    {{ if .terminal_packages }}
+    {{ if .term_packages }}
         {{ range $package := .debian.flatpak.term.packages }}
 	        "{{ $package }}"
         {{ end }}
@@ -90,7 +90,7 @@ manual=(
 	        "{{ $package }}"
         {{ end }}
 	{{ end }}
-    {{ if .terminal_packages }}
+    {{ if .term_packages }}
         {{ range $package := .debian.manual.term.packages }}
 	        "{{ $package }}"
         {{ end }}
