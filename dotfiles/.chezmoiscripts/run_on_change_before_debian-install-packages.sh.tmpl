@@ -13,11 +13,13 @@ packages=(
     {{ end }}
     {{ if .dev_packages }}
         {{ range $package := .debian.apt.dev.packages }}
-	    "{{ $package }}"
+	        "{{ $package }}"
+        {{ end }}
 	{{ end }}
     {{ if .terminal_packages }}
         {{ range $package := .debian.apt.term.packages }}
-	    "{{ $package }}"
+	        "{{ $package }}"
+        {{ end }}
     {{ end}}
 )
 
@@ -48,11 +50,13 @@ flatpaks=(
     {{ end }}
     {{ if .dev_packages }}
         {{ range $package := .debian.flatpak.dev.packages }}
-	    "{{ $package }}"
+	        "{{ $package }}"
+        {{ end }}
 	{{ end }}
     {{ if .terminal_packages }}
         {{ range $package := .debian.flatpak.term.packages }}
-	    "{{ $package }}"
+	        "{{ $package }}"
+        {{ end }}
     {{ end}}
 )
 
@@ -83,11 +87,13 @@ manual=(
     {{ end }}
     {{ if .dev_packages }}
         {{ range $package := .debian.manual.dev.packages }}
-	    "{{ $package }}"
+	        "{{ $package }}"
+        {{ end }}
 	{{ end }}
     {{ if .terminal_packages }}
         {{ range $package := .debian.manual.term.packages }}
-	    "{{ $package }}"
+	        "{{ $package }}"
+        {{ end }}
     {{ end}}
 )
 
