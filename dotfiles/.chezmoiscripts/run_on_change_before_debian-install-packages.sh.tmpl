@@ -97,7 +97,7 @@ manuals=(
 
 header "Installing manual packages"
 for manual in "${manuals[@]}"; do 
-    if [ "${manual}" -eq "vscode" ]; then
+    if [ "${manual}" == "vscode" ]; then
         install_vscode
     fi
 done
