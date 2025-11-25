@@ -62,6 +62,10 @@
         "io.github.kolunmi.Bazaar",
         "md.obsidian.Obsidian",
     ]
+[debian.flatpak.dev]
+    packages = []
+[debian.flatpak.term]
+    packages = []
 
 ################################
 # Manual
