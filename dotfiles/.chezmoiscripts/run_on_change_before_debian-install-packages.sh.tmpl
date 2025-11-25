@@ -99,7 +99,7 @@ manuals=(
 
 header "Installing manual packages"
 for manual in "${manuals[@]}"; do
-    info "{{ $manual }}"
+    info "${manual}"
     #if [ "${package}" -eq "vscode" ]; then
     #    install_vscode
     #fi
