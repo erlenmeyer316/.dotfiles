@@ -6,7 +6,7 @@ set -euo pipefail
 install_vscode() {
     if dpkg -s code &> /dev/null; then
        info "Visual studio code is already installed"
-       continue
+       return
     fi
 
 	# Microsoft GPG key
