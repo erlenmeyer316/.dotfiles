@@ -64,16 +64,16 @@ header "Installing packages with flatpak"
 
 sudo flatpak update 
 
-for package in "${packages[@]}"; do
-   if flatpak list --app | grep -q "${package}"; then
-       info "Package ${package} is already installed"
+for flatpak in "${flatpaks[@]}"; do
+   if flatpak list --app | grep -q "${flatpak}"; then
+       info "Package ${flatpak} is already installed"
        continue
    fi
-   if flatpak search "${package}" | grep "${package}" &> /dev/null; then
-      info "Installing ${package}"
-      sudo flatpak install ${package} -y
+   if flatpak search "${flatpak}" | grep "${flatpak}" &> /dev/null; then
+      info "Installing ${flatpak}"
+      sudo flatpak install ${flatpak} -y
     else
-       warning "Package ${package} is not available in flatpak"
+       warning "Package ${flatpak} is not available in flatpak"
    fi
 done
 
@@ -81,7 +81,7 @@ success "flatpak packages installed"
 
 
 # Manual
-manual=(
+manuals=(
     {{ range $package := .debian.manual.common.packages }}
         "{{ $package }}"
     {{ end }}
@@ -98,8 +98,8 @@ manual=(
 )
 
 header "Installing manual packages"
-for package in in "${packages[@]}"; do
-    info "{{ $package }}"
+for manual in in "${manuals[@]}"; do
+    info "{{ $manual }}"
     #if [ "${package}" -eq "vscode" ]; then
     #    install_vscode
     #fi
