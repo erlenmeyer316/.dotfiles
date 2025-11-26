@@ -7,17 +7,12 @@ set -euo pipefail
 set -euo pipefail
 
 # DickiNas remote device ID
-DICKINAS_ID="7QPLJJ2-3ZBQKPB-5OWUBZI-YF3MHST-QIRPSEC-PMNA426-FB64FU2-BOLNTQQ"
+DICKINAS_ID="{{ (keepassxc "dickinas").UserName }}"
 
-CONFIG_DIR="$HOME/.config/syncthing"
-CONFIG_FILE="$CONFIG_DIR/config.xml"
-LOCAL_DIR="$HOME/.local/state/syncthing"
+CONFIG_FILE="{{ .xdg_config_dir }}/config.xml"
+LOCAL_DIR="{{ .xdg_state_dir }}/syncthing"
 SYNC_DIR="$HOME/Sync"
 
-_ensure_packages() {
-     apt update -y
-     apt install -y syncthing xmlstarlet
-}
 
 _generate_config_if_missing() {
     if [[ ! -f "$CONFIG_FILE" ]]; then
@@ -115,14 +110,30 @@ _start_syncthing_background() {
 
 
 install_syncthing() {
-    ensure_packages
+     if dpkg -s syncthing &> /dev/null; then
+       info "Syncthing is already installed"
+       return
+    fi
+
+	info "Installing syncthing"
+    apt install -y syncthing xmlstarlet
+}
+
+uninstall_syncthing() {
+    if dpkg -s syncthing &> /dev/null; then
+	   info "Uninstalling syncthing"
+       sudo apt-get uninstall -y syncthing xmlstarlet 
+	   sudo apt-get autoremove
+    fi
+}
+
+configure_syncthing(){
     generate_config_if_missing
     set_local_device_name
     set_default_folder_path
     add_dickinas_device
-    start_syncthing_background
 }
 
-uninstall_syncthing() {
-
+start_syncthing(){
+    start_syncthing_background
 }
