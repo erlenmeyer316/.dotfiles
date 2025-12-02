@@ -4,7 +4,7 @@
 
 {{ template "shared_script_utils.bash" . }}
 {{ template "debian_vscode.bash" . }}
-
+{{ template "debian_syncthing.bash ."}}
 
 # Apt
 packages=(
@@ -99,6 +99,10 @@ header "Installing manual packages"
 for manual in "${manuals[@]}"; do 
     if [ "${manual}" == "vscode" ]; then
         install_vscode
+    fi
+
+    if [ "${manual}" == "syncthing" ]; then
+        install_syncthing
     fi
 done
 

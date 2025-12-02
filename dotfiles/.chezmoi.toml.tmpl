@@ -7,7 +7,13 @@
 {{- $email_address := promptStringOnce . "email_address" "Enter your email address:" -}}
 {{- $dev_packages := promptBoolOnce . "dev_packages" "Would you like to install software development packages? (Y/n)" true -}}
 {{- $term_packages := promptBoolOnce . "term_packages" "Would you like to install extended terminal packages? (Y/n)" true -}}
-{{- $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from keepassxc (Y/n)" true -}}
+{{- $personal_computer := promptBoolOnce . "personal_computer" "Is this a personal computer? (y/N)" false -}}
+{{- $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from keepassxc (y/N)" false -}}
+{{- $kpxc_db := promptStringOnce . "kpxc_db" "Path to keepassxc database (Press enter to skip)" "" -}}
+
+{{- if ne $kpxc_db "" }}
+{{- $kpxc_keyfile := promptStringOnce . "kpxc_keyfile" "Path to keepassxc keyfile (Press enter to skip)" "" -}}
+{{- end }}
 
 [data]
     osid = {{ $osid | quote }}
@@ -15,14 +21,21 @@
     email_address = {{ $email_address | quote }}
     dev_packages = {{ $dev_packages }}
     term_packages = {{ $term_packages }}
+    personal_computer = {{ $personal_computer }}
     use_secrets = {{ $use_secrets }}
     xdg_cache_dir = "{{ .chezmoi.homeDir }}/.cache"
     xdg_config_dir = "{{ .chezmoi.homeDir }}/.config"
     xdg_data_dir = "{{ .chezmoi.homeDir }}/.local/share"
     xdg_state_dir = "{{ .chezmoi.homeDir }}/.local/state"
 
+{{- if ne $kpxc_db "" }}
 [keepassxc]
-	database = "/home/erlenmeyer316/Sync/keepassxc/Passwords.kdbx"
+	database = {{ $kpxc_db | quote }}
+    {{- if ne $kpxc_keyfile "" }}
+    args = [ "--no-password" "--keyfile $kpxc_keyfile" ]
+    {{- end }}
+{{- end }}
+
 
 [hooks.read-source-state.pre]
 script = ".local/share/chezmoi/dotfiles/.pre-read-source-state-hook.sh"

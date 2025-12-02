@@ -7,7 +7,7 @@ set -euo pipefail
 set -euo pipefail
 
 # DickiNas remote device ID
-DICKINAS_ID="{{ (keepassxc "dickinas").UserName }}"
+DICKINAS_ID="{{ (keepassxc "syncthing.dickinas").password }}"
 
 CONFIG_FILE="{{ .xdg_config_dir }}/config.xml"
 LOCAL_DIR="{{ .xdg_state_dir }}/syncthing"
@@ -110,7 +110,7 @@ _start_syncthing_background() {
 
 
 install_syncthing() {
-     if dpkg -s syncthing &> /dev/null; then
+    if dpkg -s syncthing &> /dev/null; then
        info "Syncthing is already installed"
        return
     fi
@@ -134,6 +134,6 @@ configure_syncthing(){
     add_dickinas_device
 }
 
-start_syncthing(){
+start_syncthing_daemon(){
     start_syncthing_background
 }
