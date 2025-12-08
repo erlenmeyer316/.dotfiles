@@ -10,6 +10,7 @@
 {{- $personal_packages := promptBoolOnce . "personal_packages" "Install and configure personal packages? (y/N)" false -}}
 {{- $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from keepassxc (y/N)" false -}}
 {{- $kpxc_db := promptStringOnce . "kpxc_db" "Path to keepassxc database (Press enter to skip)" "" -}}
+{{- $kpxc_keyfile := promptStringOnce . "kpxc_keyfile" "Path to keepassxc keyfile (Press enter to use password)" "" -}}
 
 {{- if ne $kpxc_db "" }}
 {{- $kpxc_keyfile := promptStringOnce . "kpxc_keyfile" "Path to keepassxc keyfile (Press enter to skip)" "" -}}
