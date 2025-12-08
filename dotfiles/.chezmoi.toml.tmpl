@@ -12,10 +12,6 @@
 {{- $kpxc_db := promptStringOnce . "kpxc_db" "Path to keepassxc database (Press enter to skip)" "" -}}
 {{- $kpxc_keyfile := promptStringOnce . "kpxc_keyfile" "Path to keepassxc keyfile (Press enter to use password)" "" -}}
 
-{{- if ne $kpxc_db "" }}
-{{- $kpxc_keyfile := promptStringOnce . "kpxc_keyfile" "Path to keepassxc keyfile (Press enter to skip)" "" -}}
-{{- end }}
-
 [data]
     osid = {{ $osid | quote }}
     user_name = {{ $user_name | quote }}
