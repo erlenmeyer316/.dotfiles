@@ -52,10 +52,7 @@
         "fbterm",   
     ]
 [debian.apt.personal]
-    packages = [
-        "syncthing",
-        "xmlstarlet",
-    ]
+    packages = []
 
 ################################
 # Flatpak
@@ -65,15 +62,14 @@
 [debian.flatpak.common]
     packages = [
         "io.github.kolunmi.Bazaar",
+        "md.obsidian.Obsidian",
     ]
 [debian.flatpak.dev]
     packages = []
 [debian.flatpak.term]
     packages = []
 [debian.flatpak.personal]
-    packages = [
-        "md.obsidian.Obsidian",
-    ]
+    packages = []
 
 ################################
 # Manual
@@ -90,4 +86,6 @@
 [debian.manual.term]
     packages = []
 [debian.manual.personal]
-    packages = []
+    packages = [
+        "syncthing"
+    ]

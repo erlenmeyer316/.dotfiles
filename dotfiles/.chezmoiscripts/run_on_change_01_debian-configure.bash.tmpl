@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+{{ if eq .osid "linux-debian" }}
+
+{{ template "shared_script_utils.bash" . }}
+{{ template "debian_syncthing.bash ."}}
+
+{{ if .personal_packages }}
+# Manual
+packages=(
+    {{ range $package := .debian.apt.personal.packages }}
+        "{{ $package }}"
+    {{ end }}
+    {{ range $package := .debian.flatpak.personal.packages }}
+        "{{ $package }}"
+    {{ end }}
+    {{ range $package := .debian.manual.personal.packages }}
+        "{{ $package }}"
+    {{ end }}
+)
+
+header "Configuring personal packages"
+for package in "${packages[@]}"; do 
+    if [ "${package}" == "syncthing" ]; then
+        configure_syncthing
+        start_syncthing_daemon
+    fi
+done
+
+{{ end }}
+

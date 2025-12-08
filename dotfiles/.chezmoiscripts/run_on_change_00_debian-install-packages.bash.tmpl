@@ -21,6 +21,11 @@ packages=(
 	        "{{ $package }}"
         {{ end }}
     {{ end}}
+    {{ if .personal_packages }}
+        {{ range $package := .debian.apt.personal.packages }}
+	        "{{ $package }}"
+        {{ end }}
+    {{ end}}    
 )
 
 header "Installing packages with apt"
@@ -56,6 +61,11 @@ flatpaks=(
 	        "{{ $package }}"
         {{ end }}
     {{ end}}
+    {{ if .personal_packages }}
+        {{ range $package := .debian.flatpak.personal.packages }}
+	        "{{ $package }}"
+        {{ end }}
+    {{ end}}    
 )
 
 header "Installing packages with flatpak"
@@ -90,6 +100,11 @@ manuals=(
 	{{ end }}
     {{ if .term_packages }}
         {{ range $package := .debian.manual.term.packages }}
+	        "{{ $package }}"
+        {{ end }}
+    {{ end}}
+    {{ if .personal_packages }}
+        {{ range $package := .debian.manual.personal.packages }}
 	        "{{ $package }}"
         {{ end }}
     {{ end}}

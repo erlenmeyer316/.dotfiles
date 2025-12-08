@@ -30,6 +30,9 @@ header "Checking for manual packages to remove"
     if [ "${manual}" -eq "vscode" ]; then
         uninstall_vscode
     fi
+    if [ "${manual}" -eq "syncthing"]; then
+        uninstall_syncthing
+    fi
 {{ end }}
 
 _safeExit_
