@@ -29,7 +29,7 @@
 [keepassxc]
 	database = {{ $kpxc_db | quote }}
     {{- if ne $kpxc_keyfile "" }}
-    args = [ "--no-password" "--keyfile $kpxc_keyfile" ]
+    args = [ "--no-password", "--keyfile $kpxc_keyfile" ]
     {{- end }}
 {{- end }}
 
