@@ -17,6 +17,7 @@
         "wget",
         "build-essential",
         "flatpak",
+        "libarchive-tools",
     ]
 [debian.apt.common]
     packages = [
