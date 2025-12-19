@@ -7,10 +7,10 @@ set -euo pipefail
 set -euo pipefail
 
 # DickiNas remote device ID
-DICKINAS_ID="{{ (keepassxc "syncthing.dickinas").password }}"
+DICKINAS_ID="7QPLJJ2-3ZBQKPB-5OWUBZI-YF3MHST-QIRPSEC-PMNA426-FB64FU2-BOLNTQQ"
 
-CONFIG_FILE="{{ .xdg_config_dir }}/config.xml"
-LOCAL_DIR="{{ .xdg_state_dir }}/syncthing"
+CONFIG_FILE="$HOME/.config/config.xml"
+LOCAL_DIR="$HOME/.local/syncthing"
 SYNC_DIR="$HOME/Sync"
 
 
