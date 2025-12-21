@@ -21,13 +21,16 @@ _generate_config_if_missing() {
         syncthing --generate="$CONFIG_DIR"
     else
         echo "[✓] Config already exists"
+        return 1;
     fi
     
     if [[ ! -d "$LOCAL_DIR" ]]; then
        echo "[*] Creating local dir"
        mkdir -p "$LOCAL_DIR"
+       return 0;
     else
        echo "[✓] Local dir already exists"
+       return 1;
     fi
 }
 
@@ -128,10 +131,11 @@ uninstall_syncthing() {
 }
 
 configure_syncthing(){
-    generate_config_if_missing
-    set_local_device_name
-    set_default_folder_path
-    add_dickinas_device
+    if generate_config_if_missing; then
+        set_local_device_name
+        set_default_folder_path
+        add_dickinas_device
+    fi
 }
 
 start_syncthing_daemon(){
